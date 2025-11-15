@@ -1,0 +1,225 @@
+/* ============================================
+   Amélioration de la typographie générale
+   ============================================ */
+
+/* Augmentation de la taille de base du texte */
+.md-typeset {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Augmentation de la taille des titres */
+.md-typeset h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.md-typeset h2 {
+  font-size: 1.8em;
+  font-weight: 600;
+  margin-top: 2.5em;
+  border-bottom: 2px solid var(--md-primary-fg-color--light);
+  padding-bottom: 0.3em;
+}
+
+.md-typeset h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+}
+
+/* ============================================
+   Amélioration des admonitions
+   ============================================ */
+
+/* Augmentation de la taille du texte dans les admonitions */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+}
+
+/* Titre des admonitions plus visible */
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-left: 2.5rem;
+}
+
+/* Icônes des admonitions légèrement plus grandes */
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+/* Amélioration des couleurs des admonitions en mode sombre */
+[data-md-color-scheme="slate"] .md-typeset .admonition.note,
+[data-md-color-scheme="slate"] .md-typeset details.note {
+  border-left: 4px solid #4fc3f7;
+  background-color: rgba(79, 195, 247, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip,
+[data-md-color-scheme="slate"] .md-typeset details.tip {
+  border-left: 4px solid #66bb6a;
+  background-color: rgba(102, 187, 106, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.info,
+[data-md-color-scheme="slate"] .md-typeset details.info {
+  border-left: 4px solid #29b6f6;
+  background-color: rgba(41, 182, 246, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning,
+[data-md-color-scheme="slate"] .md-typeset details.warning {
+  border-left: 4px solid #ffa726;
+  background-color: rgba(255, 167, 38, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger,
+[data-md-color-scheme="slate"] .md-typeset details.danger {
+  border-left: 4px solid #ef5350;
+  background-color: rgba(239, 83, 80, 0.1);
+}
+
+/* ============================================
+   Amélioration des tableaux
+   ============================================ */
+
+.md-typeset table:not([class]) {
+  font-size: 0.95rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: rgba(103, 58, 183, 0.3);
+  padding: 0.9em 1.2em;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.8em 1.2em;
+}
+
+/* Alternance de couleurs pour les lignes */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:hover {
+  background-color: rgba(103, 58, 183, 0.1);
+}
+
+/* ============================================
+   Amélioration des blocs de code
+   ============================================ */
+
+.md-typeset code {
+  font-size: 0.92em;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  background-color: rgba(103, 58, 183, 0.15);
+}
+
+.md-typeset pre > code {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Bouton de copie plus visible */
+.md-clipboard {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.md-clipboard:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* ============================================
+   Amélioration de la navigation
+   ============================================ */
+
+.md-nav__link {
+  font-size: 0.9rem;
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+  color: #ff6e40;
+}
+
+/* ============================================
+   Touches spéciales (kbd)
+   ============================================ */
+
+.md-typeset kbd {
+  font-size: 0.85em;
+  padding: 0.15em 0.5em;
+  background-color: rgba(103, 58, 183, 0.2);
+  border: 1px solid rgba(103, 58, 183, 0.4);
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   Amélioration des listes
+   ============================================ */
+
+.md-typeset ul,
+.md-typeset ol {
+  line-height: 1.7;
+}
+
+.md-typeset li {
+  margin-bottom: 0.4em;
+}
+
+/* ============================================
+   Liens plus visibles
+   ============================================ */
+
+[data-md-color-scheme="slate"] .md-typeset a {
+  color: #ff6e40;
+}
+
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: #ff9e80;
+  text-decoration: underline;
+}
+
+/* ============================================
+   Amélioration du pied de page
+   ============================================ */
+
+.md-footer-meta {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   Scrollbar personnalisée (pour navigateurs Webkit)
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(103, 58, 183, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(103, 58, 183, 0.7);
+}
