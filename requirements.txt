@@ -1,1 +1,14 @@
-mkdocs-material==9.7.0
+# MkDocs et thème Material
+mkdocs>=1.6.1
+mkdocs-material>=9.7.0
+
+# Extensions Python pour Markdown
+pymdown-extensions>=10.17.1
+
+# Plugins MkDocs
+mkdocs-git-revision-date-localized-plugin>=1.5.0
+
+# Optionnel : autres plugins utiles
+# mkdocs-minify-plugin>=0.8.0  # Minification HTML/CSS/JS
+# mkdocs-redirects>=1.2.1      # Gestion des redirections
+# mkdocs-awesome-pages-plugin>=2.9.0  # Organisation automatique des pages
