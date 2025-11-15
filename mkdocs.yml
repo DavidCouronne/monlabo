@@ -1,4 +1,74 @@
-site_name: My site
-site_url: https://mydomain.org/mysite
+# Configuration générale du site
+site_name: Mon Labo
+site_url: https://monlabo.netlify.app/
+
+# Intégration du dépôt GitHub
+repo_url: https://github.com/DavidCouronne/monlabo
+repo_name: DavidCouronne/monlabo
+
+# Configuration du thème Material
 theme:
   name: material
+  # Définition de la langue française
+  language: fr
+  # Choix de la palette de couleurs
+  palette:
+    # Mode sombre par défaut avec des couleurs harmonieuses
+    scheme: slate
+    # Violet profond pour la navigation (cohérent avec KDE)
+    primary: deep purple
+    # Orange vif pour les accents (boutons, liens actifs)
+    accent: deep orange
+  # Activation de fonctionnalités utiles
+  features:
+    # Permet d'ouvrir les sections de navigation
+    - navigation.sections
+    # Affiche l'arborescence complète
+    - navigation.expand
+    # Ajoute un bouton 'Copier' aux blocs de code
+    - content.code.copy
+    # Annotations de code
+    - content.code.annotate
+    # Reste en haut lors du défilement
+    - header.autohide
+    # Bouton retour en haut
+    - navigation.top
+    # Onglets de navigation
+    - navigation.tabs
+    # Recherche améliorée
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Accueil: index.md
+  - Installation:
+    - Outils de Base: installation/outils-base.md
+
+# Extensions Markdown
+markdown_extensions:
+  - admonition             # Blocs d'alertes (Note, Warning, Info, etc.)
+  - pymdownx.details       # Blocs dépliables (collapsibles)
+  - pymdownx.superfences   # Amélioration des blocs de code
+  - pymdownx.highlight:    # Syntaxe des blocs de code
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tabbed:       # Ajout d'onglets dans le contenu
+      alternate_style: true
+  - attr_list              # Permet d'ajouter des classes ou ID aux éléments
+  - pymdownx.emoji:        # Support des emojis
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:     # Listes de tâches
+      custom_checkbox: true
+  - pymdownx.keys          # Touches de clavier (Ctrl+C, etc.)
+  - def_list               # Listes de définitions
+  - md_in_html             # Markdown dans HTML
+
+# CSS personnalisé
+extra_css:
+  - stylesheets/extra.css
+
+# JavaScript personnalisé (optionnel)
+extra_javascript:
+  - javascripts/extra.js
