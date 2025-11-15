@@ -1,75 +1,186 @@
 # Configuration générale du site
 site_name: Mon Labo
 site_url: https://monlabo.netlify.app/
+site_description: Documentation personnelle pour l'administration système, backups et configurations
+site_author: David Couronne
 
 # Intégration du dépôt GitHub
 repo_url: https://github.com/DavidCouronne/monlabo
 repo_name: DavidCouronne/monlabo
+edit_uri: edit/main/docs/
 
 # Configuration du thème Material
 theme:
   name: material
   # Définition de la langue française
   language: fr
-  # Choix de la palette de couleurs
+  # Logo et favicon (optionnel - à créer si besoin)
+  # icon:
+  #   logo: material/test-tube
+  # favicon: assets/favicon.png
+  
+  # Choix de la palette de couleurs avec toggle clair/sombre
   palette:
+    # Mode clair
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Passer en mode sombre
+    
     # Mode sombre par défaut avec des couleurs harmonieuses
-    scheme: slate
-    # Violet profond pour la navigation (cohérent avec KDE)
-    primary: deep purple
-    # Orange vif pour les accents (boutons, liens actifs)
-    accent: deep orange
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      # Violet profond pour la navigation (cohérent avec KDE)
+      primary: deep purple
+      # Orange vif pour les accents (boutons, liens actifs)
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Passer en mode clair
+  
   # Activation de fonctionnalités utiles
   features:
-    # Permet d'ouvrir les sections de navigation
-    - navigation.sections
-    # Affiche l'arborescence complète
-    - navigation.expand
-    # Ajoute un bouton 'Copier' aux blocs de code
-    - content.code.copy
-    # Annotations de code
-    - content.code.annotate
-    # Reste en haut lors du défilement
-    - header.autohide
-    # Bouton retour en haut
-    - navigation.top
-    # Onglets de navigation
-    - navigation.tabs
-    # Recherche améliorée
-    - search.suggest
-    - search.highlight
+    # Navigation
+    - navigation.instant        # Chargement instantané (SPA)
+    - navigation.instant.progress  # Barre de progression
+    - navigation.tracking       # Ancres dans l'URL
+    - navigation.sections       # Permet d'ouvrir les sections de navigation
+    - navigation.expand         # Affiche l'arborescence complète
+    - navigation.path           # Fil d'ariane
+    - navigation.indexes        # Pages d'index pour les sections
+    - navigation.top            # Bouton retour en haut
+    - navigation.tabs           # Onglets de navigation
+    - navigation.tabs.sticky    # Onglets fixes en haut
+    
+    # Table des matières
+    - toc.follow                # TOC suit le scroll
+    - toc.integrate             # TOC intégré dans la navigation
+    
+    # Recherche
+    - search.suggest            # Suggestions de recherche
+    - search.highlight          # Surlignage des résultats
+    - search.share              # Partage des résultats
+    
+    # Code
+    - content.code.copy         # Bouton 'Copier' aux blocs de code
+    - content.code.annotate     # Annotations de code
+    - content.code.select       # Sélection de code
+    
+    # Autres
+    - content.tabs.link         # Liens entre onglets
+    - header.autohide           # Header se cache au scroll
 
+# Navigation
 nav:
   - Accueil: index.md
   - Installation:
-    - Outils de Base: installation/outils-base.md
-    - Montage NAS: installation/montage-nas.md
+      - installation/index.md
+      - Outils de Base: installation/outils-base.md
+      - Montage NAS: installation/montage-nas.md
+  - Backup:
+      - backup/index.md
+      - Backup Immich: backup/immich.md
+      - Backup Jellyfin: backup/jellyfin.md
 
 # Extensions Markdown
 markdown_extensions:
-  - admonition             # Blocs d'alertes (Note, Warning, Info, etc.)
-  - pymdownx.details       # Blocs dépliables (collapsibles)
-  - pymdownx.superfences   # Amélioration des blocs de code
-  - pymdownx.highlight:    # Syntaxe des blocs de code
+  # Admonitions et blocs
+  - admonition                 # Blocs d'alertes (Note, Warning, Info, etc.)
+  - pymdownx.details           # Blocs dépliables (collapsibles)
+  - pymdownx.superfences:      # Amélioration des blocs de code
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  
+  # Code
+  - pymdownx.highlight:        # Syntaxe des blocs de code
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.tabbed:       # Ajout d'onglets dans le contenu
+  - pymdownx.inlinehilite      # Code inline coloré
+  - pymdownx.snippets          # Inclusion de fichiers
+  
+  # Contenu
+  - pymdownx.tabbed:           # Ajout d'onglets dans le contenu
       alternate_style: true
-  - attr_list              # Permet d'ajouter des classes ou ID aux éléments
-  - pymdownx.emoji:        # Support des emojis
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - attr_list                  # Permet d'ajouter des classes ou ID aux éléments
+  - md_in_html                 # Markdown dans HTML
+  - def_list                   # Listes de définitions
+  - footnotes                  # Notes de bas de page
+  
+  # Formatage
+  - pymdownx.critic            # Suivi des modifications
+  - pymdownx.caret             # Texte en exposant (^)
+  - pymdownx.mark              # Surligné (==texte==)
+  - pymdownx.tilde             # Barré (~texte~)
+  - pymdownx.keys              # Touches de clavier (Ctrl+C, etc.)
+  
+  # Listes
+  - pymdownx.tasklist:         # Listes de tâches
+      custom_checkbox: true
+      clickable_checkbox: true  # Cases cochables dans le navigateur
+  
+  # Emojis et icônes
+  - pymdownx.emoji:            # Support des emojis
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.tasklist:     # Listes de tâches
-      custom_checkbox: true
-  - pymdownx.keys          # Touches de clavier (Ctrl+C, etc.)
-  - def_list               # Listes de définitions
-  - md_in_html             # Markdown dans HTML
+  
+  # Mise en forme avancée
+  - pymdownx.smartsymbols      # Symboles intelligents (c) -> ©
+  - pymdownx.betterem:         # Meilleure gestion de l'emphase
+      smart_enable: all
+  
+  # Tables et autres
+  - tables                     # Tables améliorées
+  - abbr                       # Abréviations avec tooltips
+
+# Plugins
+plugins:
+  - search:                    # Plugin de recherche
+      lang: fr                 # Langue française
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - git-revision-date-localized:  # Dates de révision Git
+      enable_creation_date: true
+      type: datetime
+      timezone: Europe/Paris
+      locale: fr
+      fallback_to_build_date: true
 
 # CSS personnalisé
 extra_css:
   - stylesheets/extra.css
 
-# JavaScript personnalisé (optionnel)
+# JavaScript personnalisé
 extra_javascript:
   - javascripts/extra.js
+
+# Informations supplémentaires
+extra:
+  # Réseaux sociaux (optionnel)
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/DavidCouronne
+      name: GitHub
+  
+  # Analytics (optionnel)
+  # analytics:
+  #   provider: google
+  #   property: G-XXXXXXXXXX
+  
+  # Gestion des versions (optionnel)
+  version:
+    provider: mike
+
+# Copyright
+copyright: Copyright &copy; 2024 David Couronne
+
+# Configuration stricte pour détecter les erreurs
+strict: false  # Mettre à true en production pour détecter les erreurs
