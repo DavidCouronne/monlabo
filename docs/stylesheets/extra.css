@@ -1,22 +1,82 @@
 /* ============================================
+   Amélioration des listes de définitions
+   ============================================ */
+
+.md-typeset dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.8rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 1.05rem;
+}
+
+.md-typeset dt {
+  font-weight: 600;
+  color: var(--md-primary-fg-color);
+  font-size: 1.05rem;
+  padding: 0.5rem 0;
+  grid-column: 1;
+}
+
+.md-typeset dd {
+  margin: 0;
+  padding: 0.5rem 0;
+  line-height: 1.7;
+  grid-column: 2;
+  border-left: 3px solid rgba(103, 58, 183, 0.3);
+  padding-left: 1rem;
+}
+
+.md-typeset dd strong {
+  color: var(--md-accent-fg-color);
+  font-size: 1.05rem;
+}
+
+/* Style alternatif pour les listes de définitions dans la section environnement */
+.md-typeset dd p {
+  margin: 0.3em 0;
+}
+
+/* Responsive pour les listes de définitions */
+@media screen and (max-width: 76.1875em) {
+  .md-typeset dl {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .md-typeset dt {
+    grid-column: 1;
+    border-bottom: 2px solid rgba(103, 58, 183, 0.3);
+    padding-bottom: 0.3rem;
+  }
+  
+  .md-typeset dd {
+    grid-column: 1;
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+}
+
+/* ============================================
    Amélioration de la typographie générale
    ============================================ */
 
 /* Augmentation de la taille de base du texte */
 .md-typeset {
-  font-size: 1rem;
+  font-size: 1.05rem; /* Augmenté de 1rem à 1.05rem */
   line-height: 1.7;
 }
 
 /* Augmentation de la taille des titres */
 .md-typeset h1 {
-  font-size: 2.2em;
+  font-size: 2.4em; /* Augmenté de 2.2em */
   font-weight: 700;
   margin-top: 0;
+  margin-bottom: 1em;
 }
 
 .md-typeset h2 {
-  font-size: 1.8em;
+  font-size: 1.9em; /* Augmenté de 1.8em */
   font-weight: 600;
   margin-top: 2.5em;
   border-bottom: 2px solid var(--md-primary-fg-color--light);
@@ -24,7 +84,12 @@
 }
 
 .md-typeset h3 {
-  font-size: 1.4em;
+  font-size: 1.5em; /* Augmenté de 1.4em */
+  font-weight: 600;
+}
+
+.md-typeset h4 {
+  font-size: 1.25em;
   font-weight: 600;
 }
 
@@ -35,25 +100,38 @@
 /* Augmentation de la taille du texte dans les admonitions */
 .md-typeset .admonition,
 .md-typeset details {
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1.1rem; /* Augmenté de 1.05rem pour meilleure lisibilité */
+  line-height: 1.7; /* Augmenté de 1.6 */
   border-radius: 6px;
-  padding: 1rem 1.2rem;
+  padding: 1.2rem 1.4rem; /* Augmenté le padding */
+  margin: 1.5em 0; /* Plus d'espace autour */
 }
 
 /* Titre des admonitions plus visible */
 .md-typeset .admonition-title,
 .md-typeset summary {
-  font-size: 1.1rem;
+  font-size: 1.15rem; /* Augmenté de 1.1rem */
   font-weight: 600;
   padding-left: 2.5rem;
+  margin-bottom: 0.8em;
 }
 
 /* Icônes des admonitions légèrement plus grandes */
 .md-typeset .admonition-title::before,
 .md-typeset summary::before {
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.4rem; /* Augmenté de 1.3rem */
+  height: 1.4rem;
+}
+
+/* Contenu des admonitions avec meilleur espacement */
+.md-typeset .admonition > *,
+.md-typeset details > * {
+  margin-top: 0.5em;
+}
+
+.md-typeset .admonition p,
+.md-typeset details p {
+  line-height: 1.7;
 }
 
 /* Amélioration des couleurs des admonitions en mode sombre */
@@ -87,25 +165,39 @@
   background-color: rgba(239, 83, 80, 0.1);
 }
 
+[data-md-color-scheme="slate"] .md-typeset .admonition.success,
+[data-md-color-scheme="slate"] .md-typeset details.success {
+  border-left: 4px solid #66bb6a;
+  background-color: rgba(102, 187, 106, 0.1);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.example,
+[data-md-color-scheme="slate"] .md-typeset details.example {
+  border-left: 4px solid #7e57c2;
+  background-color: rgba(126, 87, 194, 0.1);
+}
+
 /* ============================================
    Amélioration des tableaux
    ============================================ */
 
 .md-typeset table:not([class]) {
-  font-size: 0.95rem;
+  font-size: 1rem; /* Augmenté de 0.95rem */
   border-radius: 6px;
   overflow: hidden;
+  margin: 1.5em 0;
 }
 
 .md-typeset table:not([class]) th {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Augmenté de 1rem */
   background-color: rgba(103, 58, 183, 0.3);
-  padding: 0.9em 1.2em;
+  padding: 1em 1.3em; /* Augmenté */
 }
 
 .md-typeset table:not([class]) td {
-  padding: 0.8em 1.2em;
+  padding: 0.9em 1.3em; /* Augmenté */
+  line-height: 1.6;
 }
 
 /* Alternance de couleurs pour les lignes */
@@ -115,6 +207,7 @@
 
 [data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:hover {
   background-color: rgba(103, 58, 183, 0.1);
+  transition: background-color 0.2s;
 }
 
 /* ============================================
@@ -122,15 +215,20 @@
    ============================================ */
 
 .md-typeset code {
-  font-size: 0.92em;
-  padding: 0.15em 0.4em;
+  font-size: 0.95em; /* Augmenté de 0.92em */
+  padding: 0.2em 0.5em; /* Augmenté */
   border-radius: 3px;
   background-color: rgba(103, 58, 183, 0.15);
 }
 
 .md-typeset pre > code {
-  font-size: 0.9rem;
+  font-size: 0.95rem; /* Augmenté de 0.9rem */
   line-height: 1.6;
+}
+
+/* Titre des blocs de code plus visible */
+.md-typeset .highlight [data-md-annotation-id] {
+  font-size: 0.95rem;
 }
 
 /* Bouton de copie plus visible */
@@ -147,7 +245,8 @@
    ============================================ */
 
 .md-nav__link {
-  font-size: 0.9rem;
+  font-size: 0.95rem; /* Augmenté de 0.9rem */
+  line-height: 1.5;
 }
 
 .md-nav__link--active {
@@ -160,8 +259,8 @@
    ============================================ */
 
 .md-typeset kbd {
-  font-size: 0.85em;
-  padding: 0.15em 0.5em;
+  font-size: 0.9em; /* Augmenté de 0.85em */
+  padding: 0.2em 0.6em; /* Augmenté */
   background-color: rgba(103, 58, 183, 0.2);
   border: 1px solid rgba(103, 58, 183, 0.4);
   border-radius: 4px;
@@ -174,11 +273,19 @@
 
 .md-typeset ul,
 .md-typeset ol {
-  line-height: 1.7;
+  line-height: 1.8; /* Augmenté de 1.7 */
+  font-size: 1.05rem; /* Taille augmentée */
 }
 
 .md-typeset li {
-  margin-bottom: 0.4em;
+  margin-bottom: 0.5em; /* Augmenté de 0.4em */
+}
+
+/* Listes imbriquées */
+.md-typeset li > ul,
+.md-typeset li > ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 /* ============================================
@@ -194,6 +301,14 @@
   text-decoration: underline;
 }
 
+/* Liens dans les titres */
+.md-typeset h1 a,
+.md-typeset h2 a,
+.md-typeset h3 a,
+.md-typeset h4 a {
+  color: inherit;
+}
+
 /* ============================================
    Amélioration du pied de page
    ============================================ */
@@ -207,8 +322,8 @@
    ============================================ */
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px; /* Augmenté de 10px */
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -217,9 +332,219 @@
 
 ::-webkit-scrollbar-thumb {
   background: rgba(103, 58, 183, 0.5);
-  border-radius: 5px;
+  border-radius: 6px; /* Augmenté de 5px */
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(103, 58, 183, 0.7);
+}
+
+/* ============================================
+   NOUVEAUX STYLES POUR LA PAGE D'ACCUEIL
+   ============================================ */
+
+/* Hero section */
+.hero {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, rgba(103, 58, 183, 0.1) 0%, rgba(255, 110, 64, 0.1) 100%);
+  border-radius: 8px;
+}
+
+.hero p {
+  font-size: 1.15rem; /* Texte plus grand */
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 1.5rem auto;
+}
+
+/* Boutons dans le hero */
+.hero .md-button {
+  font-size: 1.05rem; /* Boutons plus lisibles */
+  padding: 0.6em 1.5em;
+  margin: 0.5rem;
+}
+
+/* Cards grid pour la page d'accueil */
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.grid.cards > * {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  background-color: rgba(103, 58, 183, 0.03);
+}
+
+.grid.cards > *:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 6px 12px rgba(103, 58, 183, 0.2);
+  transform: translateY(-4px);
+  background-color: rgba(103, 58, 183, 0.08);
+}
+
+/* Titres dans les cards */
+.grid.cards h3,
+.grid.cards h4,
+.grid.cards strong {
+  font-size: 1.15rem;
+  margin-bottom: 0.5em;
+}
+
+/* Contenu des cards */
+.grid.cards p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0.8em 0;
+}
+
+/* Liens dans les cards */
+.grid.cards a {
+  font-size: 1.05rem;
+}
+
+/* Icons dans les cards */
+.grid.cards .lg {
+  font-size: 2.5rem; /* Augmenté de 2rem */
+}
+
+.grid.cards .middle {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Séparateurs horizontaux plus visibles */
+.md-typeset hr {
+  border-bottom: 2px solid rgba(103, 58, 183, 0.3);
+  margin: 3rem 0;
+}
+
+/* Center class pour le footer et autres éléments centrés */
+.center {
+  text-align: center;
+}
+
+/* Primary color pour les numéros et éléments importants */
+.primary {
+  color: var(--md-primary-fg-color);
+}
+
+/* Onglets (tabs) plus lisibles */
+.tabbed-set {
+  font-size: 1.05rem;
+}
+
+.tabbed-labels > label {
+  font-size: 1.05rem;
+  padding: 0.8em 1.2em;
+}
+
+.tabbed-content {
+  padding: 1.5rem;
+}
+
+/* Annotations plus visibles */
+.md-annotation {
+  font-size: 1rem;
+}
+
+/* Badges et étiquettes */
+.md-tag {
+  font-size: 0.9rem;
+  padding: 0.3em 0.6em;
+}
+
+/* ============================================
+   Améliorations pour les blocs de citation
+   ============================================ */
+
+.md-typeset blockquote {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid var(--md-primary-fg-color);
+}
+
+/* ============================================
+   Responsive : encore plus lisible sur mobile
+   ============================================ */
+
+@media screen and (max-width: 76.1875em) {
+  .md-typeset {
+    font-size: 1.1rem; /* Encore plus grand sur mobile */
+  }
+  
+  .md-typeset h1 {
+    font-size: 2em;
+  }
+  
+  .md-typeset h2 {
+    font-size: 1.6em;
+  }
+  
+  .md-typeset .admonition,
+  .md-typeset details {
+    font-size: 1.15rem; /* Admonitions plus grandes sur mobile */
+  }
+  
+  .grid.cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ============================================
+   Amélioration de la TOC (Table of Contents)
+   ============================================ */
+
+.md-nav--secondary .md-nav__link {
+  font-size: 0.95rem;
+  padding: 0.4em 0.6em;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+}
+
+/* ============================================
+   Amélioration du header de recherche
+   ============================================ */
+
+.md-search__input {
+  font-size: 1rem;
+}
+
+/* ============================================
+   Amélioration des footnotes (notes de bas de page)
+   ============================================ */
+
+.md-typeset .footnote {
+  font-size: 1rem;
+}
+
+.md-typeset .footnote-ref {
+  font-size: 0.9em;
+}
+
+/* ============================================
+   Mode clair (light mode)
+   ============================================ */
+
+[data-md-color-scheme="default"] .grid.cards > * {
+  background-color: rgba(103, 58, 183, 0.05);
+}
+
+[data-md-color-scheme="default"] .grid.cards > *:hover {
+  background-color: rgba(103, 58, 183, 0.12);
+}
+
+[data-md-color-scheme="default"] .hero {
+  background: linear-gradient(135deg, rgba(103, 58, 183, 0.08) 0%, rgba(255, 110, 64, 0.08) 100%);
 }
