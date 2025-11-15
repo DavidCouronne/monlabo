@@ -43,6 +43,7 @@ nav:
   - Accueil: index.md
   - Installation:
     - Outils de Base: installation/outils-base.md
+    - Montage NAS: installation/montage-nas.md
 
 # Extensions Markdown
 markdown_extensions:
