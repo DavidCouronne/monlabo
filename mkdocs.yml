@@ -180,7 +180,7 @@ extra:
     provider: mike
 
 # Copyright
-copyright: Copyright &copy; 2024 David Couronne
+copyright: Copyright &copy; 2025 David Couronné
 
 # Configuration stricte pour détecter les erreurs
 strict: false  # Mettre à true en production pour détecter les erreurs
