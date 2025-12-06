@@ -91,6 +91,28 @@ Bienvenue dans mon laboratoire personnel de configuration et de documentation !
     **KDE Plasma** reste constant même si je change de distribution. **Kate** est mon éditeur privilégié pour les fichiers de configuration (plus besoin de `nano` !), tandis que **VS Code** gère mes projets plus complexes. **Fish** offre une autocomplétion intelligente qui accélère considérablement le travail en ligne de commande.
 
 ---
+## :material-folder-wrench: Stratégie de Structure des Scripts
+
+
+
+- :material-security:{ .lg .middle } Scripts Système (`sudo`)
+
+Scripts qui gèrent des ressources système et nécessitent des  privilèges élevés (`sudo`). 
+
+Placés dans `/usr/local/bin/` pour une séparation claire et une meilleure sécurité.(Ex: `mount-nas.sh`)
+
+- :material-account:{ .lg .middle } Scripts Personnels (Utilisateur)
+
+Scripts d'installation, de configuration et d'automatisation des services Rootless. 
+
+Placés dans `~/scripts/` pour un accès facile sans élévation de privilèges.     (Ex: `backup-immich.sh`)
+
+
+
+!!! tip "Pourquoi cette structure ?"
+    Elle garantit la robustesse et la sécurité en séparant les outils système des outils personnels. La cohérence pour l'utilisateur est assurée par des alias Fish simples pour toutes les commandes.
+
+---
 
 ## 📚 Sections du Site
 
@@ -175,7 +197,7 @@ Bienvenue dans mon laboratoire personnel de configuration et de documentation !
 
     Serveur de gestion de photos et vidéos auto-hébergé
     
-    :octicons-clock-24: *Documentation à venir*
+    [:octicons-arrow-right-24: Consulter](guides/immich-podman.md)
 
 -   :material-play-box-multiple: **Jellyfin**
 

@@ -84,6 +84,8 @@ nav:
       - backup/index.md
       - Backup Immich: backup/immich.md
       - Backup Jellyfin: backup/jellyfin.md
+  - Guides:
+      - Immich Podman: guides/immich-podman.md
 
 # Extensions Markdown
 markdown_extensions:
