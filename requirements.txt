@@ -1,6 +1,5 @@
-# MkDocs et thème Material
-mkdocs>=1.6.1
-mkdocs-material>=9.7.0
+# Zensical
+zensical
 
 # Extensions Python pour Markdown
 pymdown-extensions>=10.17.1
