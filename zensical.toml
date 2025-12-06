@@ -1,0 +1,52 @@
+[project]
+site_name = "Mon Labo"
+site_url = "https://monlabo.netlify.app/"
+site_description = "Documentation personnelle pour l'administration système, backups et configurations"
+site_author = "David Couronne"
+
+[project.repo]
+url = "https://github.com/DavidCouronne/monlabo"
+name = "DavidCouronne/monlabo"
+edit_uri = "edit/main/docs/"
+
+nav = [
+  { Accueil = "index.md" },
+  { Installation = [
+    "installation/index.md",
+    { "Outils de Base" = "installation/outils-base.md" },
+    { "Montage NAS" = "installation/montage-nas.md" },
+  ]},
+  { Backup = [
+    "backup/index.md",
+    { "Backup Immich" = "backup/immich.md" },
+    { "Backup Jellyfin" = "backup/jellyfin.md" },
+  ]},
+  { Guides = [
+    { "Immich Podman" = "guides/immich-podman.md" },
+  ]},
+  { Minecraft = "minecraft/index.md" },
+]
+
+[project.markdown_extensions]
+admonition = {}
+"pymdownx.details" = {}
+"pymdownx.superfences" = {}
+"pymdownx.highlight" = { anchor_linenums = true, line_spans = "__span", pygments_lang_class = true }
+"pymdownx.inlinehilite" = {}
+"pymdownx.snippets" = {}
+"pymdownx.tabbed" = { alternate_style = true, combine_header_slug = true }
+attr_list = {}
+md_in_html = {}
+def_list = {}
+footnotes = {}
+"pymdownx.critic" = {}
+"pymdownx.caret" = {}
+"pymdownx.mark" = {}
+"pymdownx.tilde" = {}
+"pymdownx.keys" = {}
+"pymdownx.tasklist" = { custom_checkbox = true, clickable_checkbox = true }
+"pymdownx.emoji" = {}
+"pymdownx.smartsymbols" = {}
+"pymdownx.betterem" = { smart_enable = "all" }
+tables = {}
+abbr = {}
