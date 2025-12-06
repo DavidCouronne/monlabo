@@ -4,6 +4,19 @@ site_url = "https://monlabo.netlify.app/"
 site_description = "Documentation personnelle pour l'administration système, backups et configurations"
 site_author = "David Couronne"
 
+[project.theme.palette]
+scheme = "default"
+
+[[project.theme.palette]] 
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
 [project.repo]
 url = "https://github.com/DavidCouronne/monlabo"
 name = "DavidCouronne/monlabo"
