@@ -84,12 +84,9 @@ nav:
       - backup/index.md
       - Backup Immich: backup/immich.md
       - Backup Jellyfin: backup/jellyfin.md
-<<<<<<< Updated upstream
   - Guides:
       - Immich Podman: guides/immich-podman.md
-=======
   - Minecraft: minecraft/index.md
->>>>>>> Stashed changes
 
 # Extensions Markdown
 markdown_extensions:
