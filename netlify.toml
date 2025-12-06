@@ -1,6 +1,6 @@
 # netlify.toml
 [build]
-  command = "pip install -r requirements.txt && mkdocs build"
+  command = "pip install -r requirements.txt && zensical build"
   publish = "site/"
   
 [build.environment]
