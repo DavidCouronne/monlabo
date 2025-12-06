@@ -4,8 +4,7 @@ site_url = "https://monlabo.netlify.app/"
 site_description = "Documentation personnelle pour l'administration système, backups et configurations"
 site_author = "David Couronne"
 
-[project.theme.palette]
-scheme = "default"
+
 
 [[project.theme.palette]] 
 scheme = "default"
