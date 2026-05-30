@@ -47,6 +47,12 @@ nav = [
         { "Backup Navidrome-Immich" = "guides/backup-navidrome-immich.md" },
   ]},
   { Minecraft = "minecraft/index.md" },
+  { Zensical = [
+    { "Zensical CheatSheet" = "zensical/zensical-cheatsheet.md" },
+    { "Zensical Guide" = "zensical/zensical-guide.md" },
+
+  ]},
+
 ]
 
 [project.markdown_extensions]
