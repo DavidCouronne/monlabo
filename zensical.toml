@@ -4,6 +4,13 @@ site_url = "https://monlabo.netlify.app/"
 site_description = "Documentation personnelle pour l'administration système, backups et configurations"
 site_author = "David Couronne"
 
+[project.theme]
+features = [
+    "navigation.footer",
+    "navigation.instant",
+    "navigation.top",
+    "content.code.copy"
+]
 
 
 [[project.theme.palette]] 
@@ -32,9 +39,12 @@ nav = [
     "backup/index.md",
     { "Backup Immich" = "backup/immich.md" },
     { "Backup Jellyfin" = "backup/jellyfin.md" },
+
   ]},
   { Guides = [
     { "Immich Podman" = "guides/immich-podman.md" },
+    { "Navidrome Podman" = "guides/navidrome-podman.md" },
+        { "Backup Navidrome-Immich" = "guides/backup-navidrome-immich.md" },
   ]},
   { Minecraft = "minecraft/index.md" },
 ]
