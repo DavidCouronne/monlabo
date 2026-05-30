@@ -10,3 +10,8 @@ dependencies = [
     "mkdocs-material>=9.7.0",
     "pymdown-extensions>=10.17.1",
 ]
+
+[dependency-groups]
+dev = [
+    "zensical>=0.0.43",
+]
