@@ -67,8 +67,11 @@ footnotes = {}
 "pymdownx.tilde" = {}
 "pymdownx.keys" = {}
 "pymdownx.tasklist" = { custom_checkbox = true, clickable_checkbox = true }
-"pymdownx.emoji" = {}
 "pymdownx.smartsymbols" = {}
 "pymdownx.betterem" = { smart_enable = "all" }
 tables = {}
 abbr = {}
+
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "zensical.extensions.emoji.twemoji"
+emoji_generator = "zensical.extensions.emoji.to_svg"
