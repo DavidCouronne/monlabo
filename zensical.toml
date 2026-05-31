@@ -44,6 +44,7 @@ nav = [
   { Guides = [
     { "Immich Podman" = "guides/immich-podman.md" },
     { "Navidrome Podman" = "guides/navidrome-podman.md" },
+    { "Jellyfin Podman" = "guides/jellyfin-podman.md" },
         { "Backup Navidrome-Immich" = "guides/backup-navidrome-immich.md" },
   ]},
   { Minecraft = "minecraft/index.md" },
