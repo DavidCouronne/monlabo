@@ -46,6 +46,7 @@ nav = [
     { "Navidrome Podman" = "guides/navidrome-podman.md" },
     { "Jellyfin Podman" = "guides/jellyfin-podman.md" },
         { "Backup Navidrome-Immich" = "guides/backup-navidrome-immich.md" },
+        { "Java Immutable" = "guides/java-immutable.md" },
   ]},
   { Minecraft = "minecraft/index.md" },
   { Zensical = [
