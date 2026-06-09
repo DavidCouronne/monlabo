@@ -4,6 +4,27 @@ Aurora Linux utilise **SELinux** en mode enforcing, ce qui peut bloquer le lance
 
 ---
 
+```bash
+# Créer la toolbox Ubuntu 26.04
+toolbox create --distro ubuntu --release 26.04 ubuntu-java
+
+# Entrer dedans
+toolbox enter ubuntu-java
+
+# Installer Java
+sudo apt update
+sudo apt install default-jdk -y
+
+# Vérifier
+java -version
+```
+
+```bash
+toolbox run --container ubuntu-java java -jar /var/home/famille/TLauncher.jar
+```
+
+
+
 ## Pourquoi SELinux bloque Java ?
 
 Java utilise un compilateur **JIT (Just-In-Time)** qui écrit du code machine directement en mémoire, puis l'exécute. SELinux interprète cette mémoire exécutable comme une menace potentielle et bloque l'opération. C'est pour cette même raison qu'une Distrobox Debian fonctionne : le contexte SELinux y est différent.
