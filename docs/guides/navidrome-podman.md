@@ -367,3 +367,13 @@ cp /chemin/vers/ta/cle/backups/* ~/.local/share/jellyfin/config/data/backups/
 | **Navidrome** | ✅ Tous les jours à 2h | `~/Documents/Sauvegardes/navidrome/` | Terminal (service arrêté) |
 | **Immich** | ✅ Tous les jours à 2h | `~/.local/share/immich/data/backups/` | Interface web — clic-clic |
 | **Jellyfin** | ✅ Tous les jours | `~/.local/share/jellyfin/config/data/backups/` | Interface web — clic-clic |
+
+
+podman run -d \
+  --name navidrome \
+  -p 4533:4533 \
+  -v ~/navidrome/data:/data:Z \
+  -v /home/famille/Musique:/music:ro \
+  -e ND_SCANSCHEDULE=1h \
+  -e ND_LOGLEVEL=info \
+  deluan/navidrome:latest
