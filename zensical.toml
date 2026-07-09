@@ -56,6 +56,7 @@ nav = [
     { "Zensical Guide" = "zensical/zensical-guide.md" },
 
   ]},
+  { Ubuntu-Docker = "guides/ubuntu-docker.md" },
 
 ]
 
