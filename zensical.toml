@@ -57,6 +57,7 @@ nav = [
 
   ]},
   { Ubuntu-Docker = "guides/ubuntu-docker.md" },
+  { bluefin-chezmoi = "installation/bluefin-chezmoi.md" },
 
 ]
 
