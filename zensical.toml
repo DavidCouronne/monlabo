@@ -33,31 +33,30 @@ nav = [
   { Installation = [
     "installation/index.md",
     { "Outils de Base" = "installation/outils-base.md" },
+    { "Project Bluefin & Chezmoi" = "installation/bluefin-chezmoi.md" },
     { "Montage NAS" = "installation/montage-nas.md" },
   ]},
   { Backup = [
     "backup/index.md",
     { "Backup Immich" = "backup/immich.md" },
     { "Backup Jellyfin" = "backup/jellyfin.md" },
-
   ]},
   { Guides = [
     { "SSH" = "guides/ssh-guide.md" },
+    { "Git & GitHub CLI" = "guides/git-guide.md" },
+    { "LUKS + Btrfs" = "guides/luks-btrfs-montage-auto.md" },
     { "Bazzite LUKS" = "guides/bazzite-luks-bootstrap.md" },
+    { "Docker sur Ubuntu" = "guides/ubuntu-docker.md" },
     { "Immich Podman" = "guides/immich-podman.md" },
-    { "Navidrome Podman" = "guides/navidrome-podman.md" },
     { "Jellyfin Podman" = "guides/jellyfin-podman.md" },
-        { "Backup Navidrome-Immich" = "guides/backup-navidrome-immich.md" },
-        { "Java Immutable" = "guides/java-immutable.md" },
+    { "Navidrome Podman" = "guides/navidrome-podman.md" },
+    { "Backup Navidrome-Immich" = "guides/backup-navidrome-immich.md" },
   ]},
   { Minecraft = "minecraft/index.md" },
   { Zensical = [
     { "Zensical CheatSheet" = "zensical/zensical-cheatsheet.md" },
     { "Zensical Guide" = "zensical/zensical-guide.md" },
-
-  ]},
-  { Ubuntu-Docker = "guides/ubuntu-docker.md" },
-  { bluefin-chezmoi = "installation/bluefin-chezmoi.md" },
+  ]}
 
 ]
 
