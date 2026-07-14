@@ -1,38 +1,34 @@
-# Immich avec Podman
+# Déploiement d'Immich (Podman)
 
-!!! info "À qui s'adresse ce guide ?"
-    Ce guide est écrit pour quelqu'un qui n'est **pas informaticien**. Chaque étape est expliquée simplement, et tout se fait par **copier-coller**. Une fois l'installation terminée, tu n'auras plus jamais besoin d'ouvrir un terminal.
-
-!!! note "Qu'est-ce qu'Immich ?"
-    Immich est une application pour gérer tes photos et vidéos, un peu comme Google Photos mais **chez toi**, sur ton propre ordinateur. Tes photos restent privées, et tu peux y accéder depuis ton téléphone.
+Ce guide détaille le déploiement d'Immich en mode conteneurisé rootless avec Podman et des Quadlets Systemd.
 
 ---
 
-## Prérequis — Vérifier que Podman est installé
+## Prérequis
 
-Dans Konsole :
+Avant de procéder à l'installation, assurez-vous que Podman est installé sur votre système.
+
+Exécutez la commande suivante pour vérifier sa présence :
 
 ```bash
 podman --version
 ```
 
-Si tu vois un numéro de version (ex. `podman version 5.x.x`), c'est bon, passe à l'Étape 1.
-
-Si tu obtiens une erreur, installe Podman selon ta distribution :
-
-=== "Fedora / Silverblue / Kinoite"
-
-    Podman est installé par défaut. Si besoin :
-    ```bash
-    rpm-ostree install podman
-    ```
-    Puis redémarre l'ordinateur.
+Si Podman n'est pas installé, utilisez les commandes suivantes selon votre distribution :
 
 === "Arch / CachyOS / Manjaro"
 
     ```bash
     sudo pacman -S podman
     ```
+
+=== "Fedora / Silverblue / Kinoite"
+
+    Podman est préinstallé par défaut sur ces versions. Si nécessaire, réinstallez-le avec :
+    ```bash
+    rpm-ostree install podman
+    ```
+    *Un redémarrage du système est requis après l'installation.*
 
 === "Debian / Ubuntu / Mint"
 
@@ -42,55 +38,57 @@ Si tu obtiens une erreur, installe Podman selon ta distribution :
 
 ---
 
-## Étape 1 — Créer les dossiers nécessaires
+## Étape 1 : Création des répertoires de persistance
 
-Ouvre **Konsole** et copie-colle ces lignes une par une :
+Les données et configurations d'Immich doivent être stockées dans des répertoires persistants dans votre dossier utilisateur.
+
+Exécutez ces commandes pour créer l'arborescence requise :
 
 ```bash
+# Répertoire pour les Quadlets Systemd
 mkdir -p ~/.config/containers/systemd
-```
 
-```bash
+# Répertoires de données d'Immich
 mkdir -p ~/.local/share/immich/db
 mkdir -p ~/.local/share/immich/data
 mkdir -p ~/.local/share/immich/model-cache
 ```
 
-!!! tip "Copier-coller dans Konsole"
-    Pour coller dans Konsole, utilise **Ctrl+Shift+V** (pas juste Ctrl+V).
-
 ---
 
-## Étape 2 — Générer un mot de passe pour la base de données
+## Étape 2 : Génération du mot de passe de base de données
 
-Immich a besoin d'un mot de passe interne pour sa base de données. Génères-en un automatiquement :
+Immich utilise PostgreSQL et nécessite un mot de passe robuste pour authentifier les services internes.
+
+Générez une chaîne de caractères aléatoire :
 
 ```bash
 cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 32
 ```
 
-Une suite de caractères aléatoires s'affiche, par exemple : `mK9xQz3pLwR8nVtYcDjF2sHbGu5eAi7N`
-
-!!! warning "Note ce mot de passe !"
-    Copie-le dans un endroit sûr (gestionnaire de mots de passe, bloc-notes...). Tu en auras besoin à l'étape suivante. Si tu le perds, il faudra réinstaller Immich.
+> [!WARNING]
+> Conservez ce mot de passe dans un endroit sécurisé (tel qu'un gestionnaire de mots de passe). Il sera requis pour configurer les services à l'étape suivante.
 
 ---
 
-## Étape 3 — Créer les fichiers de configuration
+## Étape 3 : Configuration des Quadlets Systemd
 
-On va créer plusieurs fichiers. Ouvre Kate pour chacun.
+Les Quadlets permettent à Systemd de gérer automatiquement le cycle de vie de vos conteneurs Podman en tant que services utilisateur.
 
-### Le pod (conteneur principal)
+Créez et configurez les cinq fichiers requis.
+
+### 3.1 : Définition du Pod (`immich.pod`)
+Ce fichier configure le réseau commun pour l'ensemble des conteneurs d'Immich.
 
 ```bash
 kate ~/.config/containers/systemd/immich.pod
 ```
 
-Copie-colle **tout le contenu suivant** :
+Contenu à y insérer :
 
-```ini
+```ini title="~/.config/containers/systemd/immich.pod"
 [Unit]
-Description=Immich Photo Server
+Description=Immich Photo Server Pod
 After=network-online.target
 
 [Pod]
@@ -100,19 +98,16 @@ PublishPort=2283:2283
 WantedBy=default.target
 ```
 
-Sauvegarde avec **Ctrl+S** et ferme Kate.
-
----
-
-### La base de données
+### 3.2 : Base de données (`immich-db.container`)
+Ce fichier configure le moteur PostgreSQL avec l'extension vectorielle pgvecto-rs.
 
 ```bash
 kate ~/.config/containers/systemd/immich-db.container
 ```
 
-Copie-colle tout le contenu suivant, **en remplaçant `MON_MOT_DE_PASSE`** par le mot de passe généré à l'étape 2 :
+Contenu à y insérer (remplacez `MON_MOT_DE_PASSE` par la valeur générée à l'étape 2) :
 
-```ini
+```ini title="~/.config/containers/systemd/immich-db.container"
 [Unit]
 Description=Immich Database
 After=immich-pod.service
@@ -135,17 +130,15 @@ RestartSec=10
 WantedBy=default.target
 ```
 
-Sauvegarde et ferme Kate.
-
----
-
-### Redis (cache interne)
+### 3.3 : Cache Redis (`immich-redis.container`)
 
 ```bash
 kate ~/.config/containers/systemd/immich-redis.container
 ```
 
-```ini
+Contenu à y insérer :
+
+```ini title="~/.config/containers/systemd/immich-redis.container"
 [Unit]
 Description=Immich Redis
 After=immich-pod.service
@@ -163,19 +156,15 @@ RestartSec=10
 WantedBy=default.target
 ```
 
-Sauvegarde et ferme Kate.
-
----
-
-### Le serveur Immich
+### 3.4 : Serveur applicatif (`immich-server.container`)
 
 ```bash
 kate ~/.config/containers/systemd/immich-server.container
 ```
 
-Copie-colle tout le contenu, **en remplaçant `MON_MOT_DE_PASSE`** par le même mot de passe qu'à l'étape 2 :
+Contenu à y insérer (remplacez `MON_MOT_DE_PASSE` par la même valeur qu'à la section 3.2) :
 
-```ini
+```ini title="~/.config/containers/systemd/immich-server.container"
 [Unit]
 Description=Immich Server
 After=immich-db.service immich-redis.service
@@ -201,17 +190,15 @@ RestartSec=10
 WantedBy=default.target
 ```
 
-Sauvegarde et ferme Kate.
-
----
-
-### Le machine learning (reconnaissance des visages et objets)
+### 3.5 : Apprentissage automatique / Machine Learning (`immich-ml.container`)
 
 ```bash
 kate ~/.config/containers/systemd/immich-ml.container
 ```
 
-```ini
+Contenu à y insérer :
+
+```ini title="~/.config/containers/systemd/immich-ml.container"
 [Unit]
 Description=Immich Machine Learning
 After=immich-pod.service
@@ -230,121 +217,87 @@ RestartSec=10
 WantedBy=default.target
 ```
 
-Sauvegarde et ferme Kate.
-
 ---
 
-## Étape 4 — Activer et démarrer Immich
+## Étape 4 : Activation et démarrage des services
 
-Dans **Konsole**, copie-colle ces commandes une par une :
+Rechargez le gestionnaire Systemd de votre session et activez le démarrage des services :
 
 ```bash
+# Recharger la configuration Systemd
 systemctl --user daemon-reload
-```
 
-```bash
+# Activer et démarrer les unités de service
 systemctl --user enable --now immich-pod.service immich-db.service immich-redis.service immich-server.service immich-ml.service
-```
 
-```bash
+# Permettre l'exécution des services utilisateur après la déconnexion
 loginctl enable-linger $USER
 ```
 
-!!! info "Le premier démarrage est lent"
-    Immich doit télécharger 4 images (serveur, base de données, redis, machine learning). Selon ta connexion, ça peut prendre **5 à 15 minutes**. C'est normal.
-
-!!! success "Vérification"
-    ```bash
-    systemctl --user status immich-server.service
-    ```
-    Au bout de quelques minutes, tu dois voir `active (running)` en vert.
+> [!NOTE]
+> Le premier démarrage peut prendre quelques minutes, le temps que Podman télécharge les images associées. Vous pouvez suivre l'état de l'initialisation avec :
+> `systemctl --user status immich-server.service`
 
 ---
 
-## Étape 5 — Ouvrir le pare-feu
+## Étape 5 : Configuration du pare-feu
 
-=== "firewall-cmd (Fedora, etc.)"
+Pour autoriser l'accès au serveur Immich (port 2283) depuis d'autres périphériques du réseau local, configurez votre pare-feu :
+
+=== "firewall-cmd (Fedora / RHEL)"
 
     ```bash
     sudo firewall-cmd --add-port=2283/tcp --permanent
     sudo firewall-cmd --reload
     ```
 
-=== "ufw (CachyOS, Ubuntu, Debian, etc.)"
+=== "ufw (CachyOS / Ubuntu / Debian)"
 
     ```bash
     sudo ufw allow 2283/tcp
     ```
 
-!!! note "Mot de passe invisible"
-    Quand tu tapes ton mot de passe après `sudo`, rien ne s'affiche — c'est normal.
+---
+
+## Étape 6 : Accès initial et configuration
+
+1. Ouvrez votre navigateur web et accédez à l'adresse suivante :
+   `http://localhost:2283`
+2. Créez le compte administrateur initial lors de la première connexion.
+3. Importez vos médias. Le traitement (génération des miniatures, reconnaissance d'objets) s'effectuera en arrière-plan.
+
+### Accès mobile
+Pour connecter l'application mobile (iOS ou Android) :
+1. Récupérez l'adresse IP de votre hôte avec la commande `ip a`.
+2. Configurez l'application cliente en renseignant l'URL : `http://<IP_DE_L_HOTE>:2283`.
 
 ---
 
-## Étape 6 — Premier accès
+## Étape 7 : Mises à jour automatiques
 
-Ouvre **Firefox** et tape dans la barre d'adresse :
-
-```
-http://localhost:2283
-```
-
-!!! tip "Mets ça en favori !"
-
-Au premier lancement, crée un **compte administrateur** avec le nom et mot de passe de ton choix.
-
-Une fois connecté, tu peux commencer à importer tes photos. Immich va les scanner et créer des miniatures — selon le nombre de photos, ça peut prendre un moment.
-
-**C'est tout ! Tu n'as plus besoin du terminal.** 📷
-
----
-
-## Accès depuis ton téléphone
-
-Trouve d'abord l'adresse IP de ton ordinateur :
-
-```bash
-ip a
-```
-
-Cherche une ligne `inet` avec une adresse du style `192.168.1.xx`.
-
-Puis **installe l'application Immich** sur ton téléphone :
-
-- **Android** : [Play Store — Immich](https://play.google.com/store/apps/details?id=app.alextran.immich)
-- **iOS** : [App Store — Immich](https://apps.apple.com/app/immich/id1613945652)
-
-Dans l'application, entre l'adresse du serveur : `http://192.168.1.xx:2283`
-
----
-
-## Mises à jour automatiques
-
-Comme pour Navidrome, les mises à jour se font toutes seules grâce au label `AutoUpdate=registry` dans chaque fichier de configuration. Active le timer une bonne fois pour toutes :
+Grâce aux instructions `AutoUpdate=registry` incluses dans les Quadlets, vous pouvez automatiser la mise à jour des conteneurs via le timer natif de Podman :
 
 ```bash
 systemctl --user enable --now podman-auto-update.timer
 ```
 
-C'est tout — Podman vérifie chaque nuit et met à jour automatiquement.
+Les conteneurs seront ainsi mis à jour automatiquement chaque nuit si une nouvelle image est disponible.
 
 ---
 
-## En cas de problème
+## Dépannage et commandes utiles
 
-!!! question "Immich ne démarre pas ?"
-    ```bash
-    systemctl --user status immich-server.service
-    podman logs immich-immich-server
-    ```
+### Vérification des statuts
+```bash
+systemctl --user status immich-server.service
+```
 
-!!! question "Je ne peux pas accéder depuis mon téléphone ?"
-    Vérifie l'Étape 5 (pare-feu) et que le téléphone est sur le même réseau Wi-Fi.
+### Lecture des journaux applicatifs
+```bash
+podman logs immich-server
+```
 
-!!! question "Les photos n'apparaissent pas ?"
-    Dans l'interface web : **Administration → Jobs → Library → Run**. Le scan peut prendre plusieurs minutes selon le nombre de photos.
-
-!!! question "Comment redémarrer Immich ?"
-    ```bash
-    systemctl --user restart immich-server.service
-    ```
+### Redémarrage des services
+```bash
+systemctl --user restart immich-pod.service
+```
